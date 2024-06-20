@@ -38,7 +38,7 @@
                 <a class="nav-link" href="#">ENTERPRISE</a>
               </li>
               <li class="nav-item mx-2">
-                <a class="nav-link" href="">PRICING</a>
+                <a class="nav-link" href="/chat">PRICING</a>
               </li>
               <li class="nav-item mx-2 dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="learnmoreDropdown" role="button"

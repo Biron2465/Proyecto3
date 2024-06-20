@@ -10,25 +10,22 @@
                             </a>
                         </div>
                         <form @submit.prevent="signUp" class="bg-light p-4 rounded shadow-sm form">
-                            <div class="mb-3">
-                                <input v-model="name" class="form-control mb-3" type="text" name="name"
-                                    placeholder="Introduzca su nombre">
-                                <input v-model="apellido1" class="form-control mb-3" type="text" name="apellido1"
-                                    placeholder="Introduzca su primer apellido">
-                                <input v-model="apellido2" class="form-control mb-3" type="text" name="apellido2"
-                                    placeholder="Introduzca su segundo apellido">
-                                <input v-model="email" class="form-control mb-3"
+                            <div class="mb-3 d-flex flex-column">
+                                <InputText v-model="name" class="mb-4" placeholder="Introduzca su nombre" />
+                                <InputText v-model="apellido1" class="mb-4"
+                                    placeholder="Introduzca su primer apellido" />
+                                <InputText v-model="apellido2" class="mb-4"
+                                    placeholder="Introduzca su segundo apellido" />
+                                <InputText v-model="email" class="mb-4"
                                     :class="{ 'border-success': submitted && emailExists, 'border-danger': submitted && !emailExists && email }"
-                                    type="email" name="email" placeholder="Introduzca su correo Electrónico">
-                                <input v-model="password" class="form-control mb-3" type="password" name="password"
-                                    placeholder="Introduzca su contraseña">
-                                <input v-model="confirmPassword" class="form-control mb-3" type="password"
-                                    name="confirmPassword" placeholder="Confirme su contraseña">
+                                    placeholder="Introduzca su correo Electrónico" />
+                                <Password v-model="password" class="mb-4" placeholder="Introduzca su contraseña" />
+                                <Password v-model="confirmPassword" class="mb-4" placeholder="Confirme su contraseña" />
                             </div>
                             <div>
                                 <div class="row">
                                     <div class="col-6 ">
-                                        <button type="submit" class="btn botn btn-block">Registrarse</button>
+                                        <Button label="Registrarse" type="submit" class="btn" />
                                     </div>
                                     <div class="col-6 text-end py-2">
                                         <a href="/sign-in">Iniciar Sesión</a>
@@ -47,12 +44,21 @@
 </template>
 
 <script>
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+import Button from 'primevue/button';
+
 export default {
+    components: {
+        InputText,
+        Password,
+        Button
+    },
     data() {
         return {
             email: '',
             password: '',
-            confirmPassword: '', 
+            confirmPassword: '',
             emailExists: false,
             submitted: false
         };
@@ -127,12 +133,12 @@ form {
     background-color: white;
 }
 
-.botn {
+.btn {
     background-color: #0abe51;
     color: #ffffff;
 }
 
-.botn:hover {
+.btn:hover {
     background-color: #0abe51;
     color: #ffffff;
 }
