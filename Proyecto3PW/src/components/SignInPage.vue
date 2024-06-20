@@ -14,17 +14,17 @@
                             <h2 class="mb-3">Empieza a usar Flock</h2>
                             <p>Introduce tu datos para continuar</p>
                             <div class="mb-3">
-                                <input v-model="email" class="form-control"
+                                <InputText v-model="email" class="form-control"
                                     :class="{ 'border-success': submitted && emailExists, 'border-danger': submitted && !emailExists && email }"
-                                    type="email" name="email" placeholder="Enter your email id">
+                                    type="email" name="email" placeholder="Enter your email id"/>
 
-                                <input v-model="password" class="form-control" type="password" name="password"
-                                    placeholder="Enter your password">
+                                <InputText v-model="password" class="form-control" type="password" name="password"
+                                    placeholder="Enter your password"/>
                             </div>
                             <div>
                                 <div class="row">
                                     <div class="col-6 ">
-                                        <button type="submit" class="btn botn btn-block">Iniciar sesión</button>
+                                        <Button label="Iniciar sesión" @click="login" class="btn"/>
                                     </div>
                                     <div class="col-6 text-end py-2">
                                         <a href="/sign-up">Registrarse</a>
@@ -44,7 +44,15 @@
 </template>
 
 <script>
+
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+
 export default {
+    components: {
+        InputText,
+        Button
+    },
     props: ['user'],
     data() {
         return {
@@ -127,12 +135,12 @@ export default {
 }
 
 
-.botn {
+.btn {
     background-color: #0abe51;
     color: #ffffff;
 }
 
-.botn:hover {
+.btn:hover {
     background-color: #0abe51;
     color: #ffffff;
 }
