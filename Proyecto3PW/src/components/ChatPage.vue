@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <input type="text" class="form-control" placeholder="Start a chat (Ctrl + K)">
+                        <InputText placeholder="Start a chat (Ctrl + K)" />
                     </div>
 
                     <div class="card-header">
@@ -62,15 +62,11 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button class="btn btn-outline-primary">
-                                <i class="bi bi-check2-circle"></i> Add a to-do
-                            </button>
-                            <button class="btn btn-outline-secondary mx-2">
-                                <i class="bi bi-alarm"></i> Set a reminder
-                            </button>
-                            <button class="btn btn-outline-success">
-                                <i class="bi bi-grid-1x2-fill"></i> Connect an app
-                            </button>
+                            <div class="mt-3">
+                                <Button label="Add a to-do" icon="pi pi-check" class="p-button-outlined" />
+                                <Button label="Set a reminder" icon="pi pi-clock" class="p-button-outlined mx-2" />
+                                <Button label="Connect an app" icon="pi pi-th-large" class="p-button-outlined" />
+                            </div>
                         </div>
                         <div class="col-md-12 p-3">
                             <div class="card">
@@ -89,30 +85,30 @@
                                             <div v-if="message.text && message.text.trim() !== ''">
                                                 <strong>{{ message.user }}</strong>
                                                 <p>{{ message.text }} <small style="float: right;">{{
-                                                        formatDate(message.date) }}</small></p>
+                                                    formatDate(message.date) }}</small></p>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Sección fija para enviar mensaje -->
                                     <div class="mt-3">
-                                        <input type="text" class="form-control"
-                                            placeholder="Enviar mensaje a Equipo Central" v-model="currentMessage"
-                                            @keydown.enter="sendMessage">
+                                        <InputText placeholder="Enviar mensaje a Equipo Central"
+                                            v-model="currentMessage" @keydown.enter="sendMessage"
+                                            style="width: 100%;" />
                                     </div>
                                     <div class="mt-2 d-flex justify-content-between">
                                         <div>
-                                            <button class="btn "><i class="bi bi-plus"></i></button>
-                                            <button class="btn "><i class="bi bi-type-bold"></i></button>
-                                            <button class="btn "><i class="bi bi-type-italic"></i></button>
-                                            <button class="btn "><i class="bi bi-type-underline"></i></button>
-                                            <button class="btn "><i class="bi bi-type-strikethrough"></i></button>
-                                            <button class="btn "><i class="bi bi-paint-bucket"></i></button>
-                                            <button class="btn "><i class="bi bi-link-45deg"></i></button>
+                                            <Button class="btn" icon="pi pi-plus"></Button>
+                                            <Button class="btn"><i class="bi bi-type-bold"></i></Button>
+                                            <Button class="btn"><i class="bi bi-type-italic"></i></Button>
+                                            <Button class="btn"><i class="bi bi-type-underline"></i></Button>
+                                            <Button class="btn"><i class="bi bi-type-strikethrough"></i></Button>
+                                            <Button class="btn" icon="pi pi-palette"></Button>
+                                            <Button class="btn" icon="pi pi-link"></Button>
                                         </div>
                                         <div>
-                                            <button class="btn">Aa</button>
-                                            <button class="btn"><i class="bi bi-emoji-smile"></i></button>
-                                            <button class="btn"><i class="bi bi-paperclip"></i></button>
+                                            <Button label="Aa" class="p-button-rounded p-button-help" />
+                                            <Button icon="pi pi-face-smile" class="p-button-rounded p-button-info" />
+                                            <Button icon="pi pi-paperclip" class="p-button-rounded p-button-warning" />
                                         </div>
                                     </div>
 
@@ -127,12 +123,20 @@
 </template>
 
 <script>
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+
+
 export default {
+    components: {
+        InputText,
+        Button,
+    },
     data() {
         return {
             user: null,
             messages: [],
-            currentMessage: ''
+            currentMessage: '',
         }
     },
     mounted() {
@@ -145,7 +149,7 @@ export default {
     },
     methods: {
         loadMessages() {
-            fetch('http://localhost:8000/Message', { 
+            fetch('http://localhost:8000/Message', {
                 method: 'GET'
             })
                 .then(response => {
@@ -155,10 +159,10 @@ export default {
                     return response.json();
                 })
                 .then(data => {
-                    this.messages = data; 
+                    this.messages = data;
                     this.$nextTick(() => {
-                    this.scrollToBottom();
-                });
+                        this.scrollToBottom();
+                    });
                 })
                 .catch(error => {
                     console.error("Hubo un error al cargar los mensajes:", error);
@@ -169,7 +173,7 @@ export default {
                 // Preparar los datos a enviar
                 const messageData = {
                     message: this.currentMessage,
-                    user_id: this.user.idUsers 
+                    user_id: this.user.idUsers
                 };
 
                 // Enviar los datos al servidor mediante una solicitud POST usando fetch
@@ -186,7 +190,7 @@ export default {
                         }
                         return response.json();
                     })
-                    .then(() => { 
+                    .then(() => {
                         const now = new Date();
                         // Formatear la fecha y hora
                         const formattedDate = now.getFullYear() + '-' +
@@ -231,4 +235,6 @@ export default {
 .col-md-4 .card {
     background-color: #eeeeee;
 }
+
+
 </style>
